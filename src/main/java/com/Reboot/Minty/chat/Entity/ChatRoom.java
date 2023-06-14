@@ -1,6 +1,7 @@
 package com.Reboot.Minty.chat.Entity;
 
 import com.Reboot.Minty.member.entity.User;
+import com.Reboot.Minty.trade.entity.Trade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,12 +22,11 @@ public class ChatRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "buyer")
-    private Long buyer;
+    @Column(name = "my")
+    private Long my;
 
 
-    @Column(name = "seller")
-    private Long seller;
-
+    @Column(name = "other")
+    private Long other;
 
 }

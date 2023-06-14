@@ -91,8 +91,8 @@
 <h2>채팅 목록</h2>
 <ul>
     <li class="chat-item" th:each="chatRoom : ${chatRoomLists}"
-        th:data-seller="${chatRoom.seller}">
-        <span th:text="${chatRoom.seller}"></span>
+        th:data-seller="${chatRoom.other}">
+        <span th:text="${chatRoom.other}"></span>
     </li>
 </ul>
 

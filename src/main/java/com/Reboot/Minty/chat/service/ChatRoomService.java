@@ -14,31 +14,31 @@ public class ChatRoomService {
     @Autowired
     ChatRoomRepository chatRoomRepository;
 
-    public ChatRoom seveChatRoom(User buyer, User seller) {
+    public ChatRoom seveChatRoom(User my, User other) {
 
-        System.out.println(buyer.getId());
-        System.out.println(seller.getId());
-        // 중복 체크
-//        if (chatRoomRepository.existsByBuyerAndSeller(buyer, seller) ||
-//                seller.equals(buyer)) {
-//            // 이미 해당 값이 존재하거나 seller가 현재 유저와 동일한 경우 처리할 로직 작성
-//            System.out.println("중복 및 판매자가 같아");
-//            return null;
-//        }
+        System.out.println(my.getId());
+        System.out.println(other.getId());
 
         ChatRoom chatRoom = new ChatRoom();
-        chatRoom.setBuyer(buyer.getId());
-        chatRoom.setSeller(seller.getId());
+        // 중복 체크
+        if (chatRoomRepository.existsByMyAndOther(my.getId(), other.getId()) ||
+                other.equals(my.getId())) {
+            // 이미 해당 값이 존재하거나 seller가 현재 유저와 동일한 경우 처리할 로직 작성
+            System.out.println("중복 및 판매자가 같아");
 
-        chatRoomRepository.save(chatRoom);
+        } else {
+            chatRoom.setMy(my.getId());
+            chatRoom.setOther(other.getId());
 
+            chatRoomRepository.save(chatRoom);
+
+        }
         return chatRoom;
+
     }
 
     public List<ChatRoom> getChatRoomList(Long userId) {
-        List<ChatRoom> chatRoomList = chatRoomRepository.findBySellerOrBuyerOrderByIdDesc(userId, userId);
-
-
+        List<ChatRoom> chatRoomList = chatRoomRepository.findByOtherOrMyOrderByIdDesc(userId, userId);
 
         return chatRoomList;
     }

@@ -34,14 +34,14 @@ public class ChatRoomController {
         System.out.println(tradeBoard.getUser().getId());
         System.out.println(tradeBoard.getContent());
 
-            User buyer = userService.getUserInfoById((Long) session.getAttribute("userId"));
-            User seller = userService.getUserInfoById(tradeBoard.getUser().getId());
+            User my = userService.getUserInfoById((Long) session.getAttribute("userId"));
+            User other = userService.getUserInfoById(tradeBoard.getUser().getId());
 
         System.out.println(tradeBoard.getUser().getId());
         System.out.println(tradeBoard.getContent());
-        System.out.println(buyer);
+        System.out.println(my);
 
-            chatRoomService.seveChatRoom(buyer, seller);
+            chatRoomService.seveChatRoom(my, other);
 
         return "redirect:/chatRoom";
     }
