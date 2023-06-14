@@ -57,18 +57,18 @@ function BoardDetail({ csrfToken }) {
           'X-CSRF-TOKEN': csrfToken,
         },
       })
-      .then((response) => {
-        window.location.href = response.data;
-      })
-      .catch((error) => {
-           if (error.response && error.response.status === 400) {
-             alert(error.response.data);
-           } else {
-             // Other errors - Show generic error message in alert
-             console.log(error);
-             alert('An error occurred.');
-           }
-         });
+        .then((response) => {
+            window.location.href = response.data;
+        })
+        .catch((error) => {
+            if (error.response && error.response.status === 400) {
+                alert(error.response.data);
+            } else {
+                // Other errors - Show generic error message in alert
+                console.log(error);
+                alert('An error occurred.');
+            }
+        });
   };
 
     const chatRoom = () => {
@@ -82,7 +82,8 @@ function BoardDetail({ csrfToken }) {
                 },
             })
             .then((response) => {
-                window.location.href = response.data;
+                window.location.href = window.location.origin + '/chatRoom';
+
             })
             .catch((error) => {
                 if (error.response && error.response.status === 400) {

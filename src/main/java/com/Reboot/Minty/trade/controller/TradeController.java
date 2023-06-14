@@ -93,10 +93,15 @@ public class TradeController {
     public String trade(@PathVariable(value = "tradeId") Long tradeId, Model model, HttpServletRequest request)  {
         HttpSession session = request.getSession();
         Long userId = (Long)session.getAttribute("userId");
+
         Trade trade = tradeService.getTradeDetail(tradeId);
+
         String role = tradeService.getRoleForTrade(tradeId, userId);
+
         User buyer= userService.getUserInfoById(trade.getBuyerId().getId());
+
         User seller= userService.getUserInfoById(trade.getSellerId().getId());
+
         model.addAttribute("trade", trade);
         model.addAttribute("role",role);
         model.addAttribute("buyer",buyer);
@@ -112,6 +117,7 @@ public class TradeController {
             User buyer = userService.getUserInfoById((Long) session.getAttribute("userId"));
             User seller = userService.getUserInfoById(tradeBoard.getUser().getId());
             Trade trade = tradeService.save(tradeBoard, buyer, seller);
+
             return ResponseEntity.ok("/trade/" + trade.getId());
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

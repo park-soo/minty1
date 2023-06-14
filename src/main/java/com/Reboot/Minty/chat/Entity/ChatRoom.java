@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -19,13 +21,12 @@ public class ChatRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "buyer")
-    private User buyer;
+    @Column(name = "buyer")
+    private Long buyer;
 
-    @ManyToOne
-    @JoinColumn(name = "seller")
-    private User seller;
+
+    @Column(name = "seller")
+    private Long seller;
 
 
 }
