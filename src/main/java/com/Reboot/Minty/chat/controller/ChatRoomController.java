@@ -1,17 +1,14 @@
 package com.Reboot.Minty.chat.controller;
 
 import com.Reboot.Minty.chat.Entity.ChatRoom;
+import com.Reboot.Minty.chat.dto.ChatRoomDTO;
 import com.Reboot.Minty.chat.service.ChatRoomService;
 import com.Reboot.Minty.member.entity.User;
 import com.Reboot.Minty.member.service.UserService;
-import com.Reboot.Minty.trade.entity.Trade;
 import com.Reboot.Minty.tradeBoard.entity.TradeBoard;
-import com.google.api.Http;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,19 +26,23 @@ public class ChatRoomController {
 
 
     @PostMapping("/chatRoom")
-    public String chatRoom(@RequestBody TradeBoard tradeBoard, HttpSession session) {
+    public String chatRoom(@RequestBody TradeBoard tradeBoard, HttpSession session, ChatRoomDTO chatRoomDTO) {
 
         System.out.println(tradeBoard.getUser().getId());
         System.out.println(tradeBoard.getContent());
 
-            User my = userService.getUserInfoById((Long) session.getAttribute("userId"));
-            User other = userService.getUserInfoById(tradeBoard.getUser().getId());
+            Long my = userService.getUserInfoById((Long) session.getAttribute("userId")).getId();
+            Long other = userService.getUserInfoById(tradeBoard.getUser().getId()).getId();
 
         System.out.println(tradeBoard.getUser().getId());
         System.out.println(tradeBoard.getContent());
         System.out.println(my);
 
-            chatRoomService.seveChatRoom(my, other);
+        chatRoomDTO.setMyId(my);
+        chatRoomDTO.setOtherId(other);
+
+        chatRoomService.saveChatRoom(chatRoomDTO);
+
 
         return "redirect:/chatRoom";
     }
@@ -51,7 +52,8 @@ public class ChatRoomController {
     public String getChatRoom(HttpServletRequest request, Model model) {
 
         HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute("userId");
+
+        User userId = userService.getUserInfoById((Long) session.getAttribute("userId"));
 
         List<ChatRoom> chatRoomList = chatRoomService.getChatRoomList(userId);
 

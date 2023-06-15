@@ -48,6 +48,7 @@ public class MessageController {
 
     @GetMapping("/fetchAllUsers/{myId}")
     public List<Map<String,Object>> fetchAll(@PathVariable("myId") String myId) {
+
         return userAndGroupService.fetchAll(myId);
 
     }

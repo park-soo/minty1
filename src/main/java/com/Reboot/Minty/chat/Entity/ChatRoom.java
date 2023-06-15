@@ -1,14 +1,11 @@
 package com.Reboot.Minty.chat.Entity;
 
 import com.Reboot.Minty.member.entity.User;
-import com.Reboot.Minty.trade.entity.Trade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Entity
 @Getter
@@ -22,11 +19,17 @@ public class ChatRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "my")
-    private Long my;
+    @ManyToOne
+    @JoinColumn(name = "my")
+    private User my;
 
+    @ManyToOne
+    @JoinColumn(name = "other")
+    private User other;
 
-    @Column(name = "other")
-    private Long other;
+    public ChatRoom(User my, User other) {
+        this.my = my;
+        this.other = other;
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.Reboot.Minty.trade.service;
 
+import com.Reboot.Minty.chat.Entity.ChatRoom;
 import com.Reboot.Minty.member.entity.User;
 import com.Reboot.Minty.trade.entity.Trade;
 import com.Reboot.Minty.trade.repository.TradeRepository;
@@ -60,6 +61,7 @@ public class TradeService {
             trade.setSellerCheck("N");
             trade.setBuyerCheck("N");
             trade.setStartDate(LocalDateTime.now());
+
             return tradeRepository.save(trade);
         }
     }

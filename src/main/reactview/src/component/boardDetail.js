@@ -82,7 +82,7 @@ function BoardDetail({ csrfToken }) {
                 },
             })
             .then((response) => {
-                window.location.href = window.location.origin + '/chatRoom';
+                window.location.href = window.location.origin + '/getchatting';
 
             })
             .catch((error) => {
